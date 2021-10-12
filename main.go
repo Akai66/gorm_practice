@@ -2,12 +2,13 @@ package main
 
 import (
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"gorm_practice/model"
 	"log"
 )
 
 const (
-	_mysqlConfig = "root:123456@[tcp](localhost:3306)/test_gorm?charset=utf8&parseTime=True&loc=Local"
+	_mysqlConfig = "root:123456@(localhost:3306)/test_gorm?charset=utf8&parseTime=True&loc=Local"
 )
 
 
@@ -19,14 +20,16 @@ func main()  {
 	defer db.Close()
 
 	//创建表
-	db.Table("user").CreateTable(&model.User{})  //指定表名建表
+	//db.Table("user").CreateTable(&model.User{})  //指定表名建表
 	//db.CreateTable(&model.User{})  //不指定表名，默认是复数形式，即users
+	db.Set("gorm:table_options", "ENGINE=InnoDB  DEFAULT CHARSET=utf8;").CreateTable(&model.User{})
 
 	//删除表
-	db.DropTableIfExists(&model.User{})
+	//db.DropTableIfExists(&model.User{})
 
 	//检查表是否存在
-	db.HasTable(&model.User{})
+	hasUserTable := db.HasTable(&model.User{})
+	log.Printf("hasUserTable: %t",hasUserTable)
 
 	//添加唯一索引
 	db.Model(&model.User{}).AddUniqueIndex("uniq_idx_name_age","name","age")
