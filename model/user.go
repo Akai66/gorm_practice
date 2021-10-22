@@ -1,11 +1,17 @@
 package model
 
+import "github.com/jinzhu/gorm"
+
 type User struct {
-	Id int
+	gorm.Model    //gorm.Model，包括字段ID，CreatedAt，UpdatedAt，DeletedAt
+	ID int `gorm:"primary_key;AUTO_INCREMENT;not null"`
 	Name string
 	Age uint8
 }
 
-func NewUser(Id int,Name string,Age uint8) *User {
-	return &User{Id,Name,Age}
+
+
+// TableName 自定义模型表名
+func (user *User) TableName() string {
+	return "user"
 }
