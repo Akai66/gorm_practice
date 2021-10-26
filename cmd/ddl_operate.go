@@ -8,8 +8,8 @@ import (
 	"log"
 )
 
-func main()  {
-	db,err := gorm.Open("mysql",myconst.MysqlConfig)
+func main() {
+	db, err := gorm.Open("mysql", myconst.MysqlConfig)
 	if err != nil {
 		log.Fatalf("connect mysql: %v", err)
 	}
@@ -17,13 +17,13 @@ func main()  {
 
 	//====DDL操作====
 	//检查表是否存在
-	hasUserTable := db.HasTable(&User{})
-	if !hasUserTable {
-		//创建表
-		db.Table("user").CreateTable(&User{})  //指定表名建表
-		db.CreateTable(&User{})  //不指定表名，默认是复数形式，即users
-		db.Set("gorm:table_options", "ENGINE=InnoDB  DEFAULT CHARSET=utf8;").CreateTable(&User{})
-	}
+	//hasUserTable := db.HasTable(&User{})
+	//if !hasUserTable {
+	//	//创建表
+	//	db.Table("user").CreateTable(&User{}) //指定表名建表
+	//	db.CreateTable(&User{})               //不指定表名，默认是复数形式，即users
+	//	db.Set("gorm:table_options", "ENGINE=InnoDB  DEFAULT CHARSET=utf8;").CreateTable(&User{})
+	//}
 
 	//删除表
 	//db.DropTableIfExists(&User{})
