@@ -4,25 +4,21 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm_practice/datasource"
 	. "gorm_practice/model/relate_tables"
-	"gorm_practice/myconst"
-	"log"
 )
 
 func main() {
 	//错误处理
-	db, err := gorm.Open("mysql", myconst.MysqlConfig)
-	if err != nil {
-		log.Fatalf("connect mysql: %v", err)
-	}
+	db := datasource.MysqlDb
 	defer db.Close()
 
 	//处理单个错误
-	//var articles []Article
-	//result := db.Where("desc like ?", "%测试%").Find(&articles)
-	//if result.Error != nil {
-	//	fmt.Println(result.Error)
-	//}
+	var articles []Article
+	result := db.Where("desc like ?", "%测试%").Find(&articles)
+	if result.Error != nil {
+		fmt.Println(result.Error)
+	}
 
 	//处理多个错误
 	//var user User

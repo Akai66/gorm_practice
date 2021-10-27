@@ -1,18 +1,13 @@
 package main
 
 import (
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm_practice/datasource"
 	. "gorm_practice/model/relate_tables"
-	"gorm_practice/myconst"
-	"log"
 )
 
 func main() {
-	db, err := gorm.Open("mysql", myconst.MysqlConfig)
-	if err != nil {
-		log.Fatalf("connect mysql: %v", err)
-	}
+	db := datasource.MysqlDb
 	defer db.Close()
 
 	////增加

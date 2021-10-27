@@ -2,20 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm_practice/datasource"
 	. "gorm_practice/model/relate_tables"
-	"gorm_practice/myconst"
-	"log"
 )
 
 func main() {
 	//常见的db操作
 
-	db, err := gorm.Open("mysql", myconst.MysqlConfig)
-	if err != nil {
-		log.Fatalf("connect mysql: %v", err)
-	}
+	db := datasource.MysqlDb
 	defer db.Close()
 
 	//启动Logger，显示详细信息，所有的查询sql日志都会打印，使用db.Debug()只显示指定操作的sql
