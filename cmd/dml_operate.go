@@ -51,8 +51,9 @@ func main() {
 	fmt.Println(users)
 
 	//update
-	//db.Model(&user).Update("age",20).Where("name=?","Jack")
+	db.Model(&user).Where("name=?", "Jack").Update("age", 20)
 
 	//delete
-	//db.Delete(&user)   //如果组合了gorm.Model，不会物理删除，只修改deleted_at字段
+	db.Delete(&user, 1) //如果组合了gorm.Model，不会物理删除，只修改deleted_at字段
+	db.Where("name = ?", "Rose").Delete(&user)
 }
